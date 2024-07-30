@@ -1,0 +1,52 @@
+{{!-- views/post.handlebars --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Tech Blog</h1>
+    <nav>
+      <a href="/">Home</a>
+      {{#if loggedIn}}
+        <a href="/dashboard">Dashboard</a>
+        <a href="#" id="logout">Logout</a>
+      {{else}}
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      {{/if}}
+    </nav>
+  </header>
+  <div class="container">
+    <div class="post">
+      <h2>{{title}}</h2>
+      <p>{{format_date createdAt}} by {{user.username}}</p>
+      <p>{{content}}</p>
+    </div>
+    <div class="comments">
+      {{#each comments}}
+        <div class="comment">
+          <p>{{comment_text}}</p>
+          <p>{{format_date createdAt}} by {{user.username}}</p>
+        </div>
+      {{else}}
+        <p>No comments yet</p>
+      {{/each}}
+    </div>
+    {{#if loggedIn}}
+      <form class="comment-form">
+        <textarea name="comment-body" placeholder="Add a comment"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <script src="/js/comment.js"></script>
+    {{else}}
+      <p><a href="/login">Login</a> to add a comment.</p>
+    {{/if}}
+  </div>
+  <script src="/js/logout.js"></script>
+</body>
+</html>
