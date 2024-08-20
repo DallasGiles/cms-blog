@@ -4,7 +4,7 @@ require('dotenv').config();
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, 'password', {
   host: process.env.DB_HOST || 'localhost',
   dialect: 'postgres',
-  port: process.env.DB_PORT || 3001,
+  port: process.env.DB_PORT || 5432,
   logging: false, // Disable logging if needed
   define: {
     timestamps: true, 
