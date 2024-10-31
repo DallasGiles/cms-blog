@@ -5,13 +5,13 @@ const exphbs = require('express-handlebars');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 require('dotenv').config();
 
-const routes = require('./controllers/homeRoutes');
+const homeRoutes = require('./controllers/homeRoutes');  // Import the homeRoutes
+
 const sequelize = require('./config/config');
 const helpers = require('./utils/helpers');
 
 const app = express();
-const PORT = process.env.PORT;
-console.log(`PORT: ${PORT}`);
+const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({ helpers });
 
@@ -24,7 +24,7 @@ const sess = {
     db: sequelize,
   }),
 };
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sess));
 
 app.engine('handlebars', hbs.engine);
@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(routes);
+app.use('/', homeRoutes);  // Use homeRoutes for all routing
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));

@@ -16,6 +16,8 @@
                     <h3>{{this.title}}</h3>
                     <p>{{this.content}}</p>
                     <small>Posted on {{this.createdAt}}</small>
+                    <!-- Delete Button -->
+                    <button class="delete-post-btn" data-id="{{this.id}}">Delete Post</button>
                 </li>
             {{/each}}
         </ul>
@@ -27,5 +29,8 @@
     <form action="/logout" method="POST">
         <button type="submit">Logout</button>
     </form>
+
+    <!-- Include JavaScript for handling the delete functionality -->
+    <script src="/js/dashboard.js"></script>
 </body>
 </html>
